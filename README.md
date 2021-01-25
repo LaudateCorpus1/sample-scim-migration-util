@@ -8,7 +8,7 @@ This Python utility uses SCIM REST API available in [Oracle Identity Cloud Servi
 
 ## List of Oracle Cloud Services Used
 
-- [Oracle Fusion Human Capital Management Release 20+ (HCM)](https://go.oracle.com/lp=67507?src1=:ad:pas:go:dg:RC_WWMK160606P00115C0013:_uk_hcm_emea_dm_en&SC=sckw=WWMK160606P00115C0013&mkwid=%7cpmt%7ce%7cpdv%7cc%7c&GOOGLE&oracle+human+capital+management&CjwKCAiAoOz-BRBdEiwAyuvA6799arSnD0zbAxPFKqqv5Gg6ADfVsyDndAI9vpM2swr3I9_4_zorChoCDhMQAvD_BwE&gclid=CjwKCAiAoOz-BRBdEiwAyuvA6799arSnD0zbAxPFKqqv5Gg6ADfVsyDndAI9vpM2swr3I9_4_zorChoCDhMQAvD_BwE&gclsrc=aw.ds) 
+- [Oracle Fusion Human Capital Management Release 20+ (HCM)](https://go.oracle.com/lp=67507?src1=:ad:pas:go:dg:RC_WWMK160606P00115C0013:_uk_hcm_emea_dm_en&SC=sckw=WWMK160606P00115C0013&mkwid=%7cpmt%7ce%7cpdv%7cc%7c&GOOGLE&oracle+human+capital+management&CjwKCAiAoOz-BRBdEiwAyuvA6799arSnD0zbAxPFKqqv5Gg6ADfVsyDndAI9vpM2swr3I9_4_zorChoCDhMQAvD_BwE&gclid=CjwKCAiAoOz-BRBdEiwAyuvA6799arSnD0zbAxPFKqqv5Gg6ADfVsyDndAI9vpM2swr3I9_4_zorChoCDhMQAvD_BwE&gclsrc=aw.ds)
 - [Oracle Digital Assistant (ODA)](https://www.oracle.com/uk/chatbots/digital-assistant-platform/)
 - [Oracle Identity Cloud Service (IDCS)](https://docs.oracle.com/en/cloud/paas/identity-cloud/index.html)
 
@@ -16,7 +16,7 @@ This Python utility uses SCIM REST API available in [Oracle Identity Cloud Servi
 
 In an ODA-HCM Hybrid cloud environment, users are first created in the HCM environment. ODA authentication to the ODA development console is federated to HCM. However, users who access the ODA development console must also exist in the ODA user store (IDCS) for authorization purposes. Out of the box, the users in HCM are populated into ODA IDCS via a scheduled synchronization process in IDCS. Currently, this process has the following limitations:
 
-1. It synchronizes every user in HCM to ODA IDCS. 
+1. It synchronizes every user in HCM to ODA IDCS.
    It is common that the number of users in HCM is much larger than the number of users who need ODA console access (ODA admin, developers, and business users) and thus, need to exist in ODA IDCS. So it is unnecessary to populate all users from HCM. When the number of HCM users becomes large (in the thousands), this synchronization process can fail.
 
 2. The OOTB synchronization process only populates users in ODA IDCS. It does not assign users to ODA application roles (ServiceAdministrator, ServiceDeveloper and ServiceBusinessUser).
@@ -72,4 +72,4 @@ Licensed under the [Universal Permissive License v 1.0] (https://oss.oracle.com/
 See [LICENSE](./LICENSE.txt) for details.
 
 ## Copyright
-Copyright (c) 2020 Oracle and/or its affiliates.
+Copyright (c) 2021 Oracle and/or its affiliates.
