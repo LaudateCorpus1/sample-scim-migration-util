@@ -1,0 +1,152 @@
+# Copyright (c) 2020, Oracle and/or its affiliates. 
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+[DEFAULT]
+# continueOnError: only y or Y makes it true
+continueOnError=Y
+# info or debug
+loggingLevel=info
+# Add a full path log file name here
+logFileName=hcm-idcs-usersync.log
+
+# This section contains HCM related information
+[HCM]
+# must change
+host=
+username=
+# the resource paths usually do not change
+restResourcePaths={ "roles": "/hcmRestApi/scim/Roles",
+                                    "users": "/hcmRestApi/scim/Users" }
+
+# This section contains IDCS related information
+[IDCS]
+host=
+username=
+
+# the resource paths usually do not change
+restResourcePaths={ "token": "/oauth2/v1/token",
+                                    "users": "/admin/v1/Users",
+                                    "approles": "/admin/v1/AppRoles",
+                                    "grants": "/admin/v1/Grants",
+                                    "groups": "/admin/v1/Groups",
+                                    "apps": "/admin/v1/Apps" }
+
+# A section name starting with TASK tells the tool to do something.
+# You can put any thing descriptive after TASK.
+#
+# taskType
+#   Indicates what the tool should do. It must contain one of:
+#               sync, deleteUsers, grantUserAppRoles, revokeGrants, addUserToGroups, removeUserFromGroups
+#
+#       sync:
+#               Retrieves users based usernames or roles from HCM, creates the users (if do not exist) in IDCS and
+#       assigns users to groups and/or application roles if not already assigned.
+#               Attributes:
+#                       hcmResourceType: required
+#                               roles: retrieves users based on a list of comma separated HCM roles
+#                               users: retrieves users based on a list of comma separated usernames
+#                       hcmFilterString: only with hcmResourceType=roles
+#                               Specifies a where clause to find HCM roles from which to retrieve users
+#                               only valid with hcmResourceType = roles.
+#                               For more information on how to construct a query, please see the documentation below
+#               todo: link to filter string
+#                       idcsAppDisplayName: optional
+#                               This is the display name of an application in IDCS. The value combined with idcsAppRoleName
+#               indicates an IDCS application role to assign to the users
+#           idcsAppRoleName: optional
+#                               The display name of an application role in the IDCS application name specified by
+#                               attribute idcsAppDisplayName.
+#                       idcsGroupNames: optional
+#                               Specifies a list of comma separated IDCS group names to which users are assigned to
+#                       hcmUsernames: optional, only with hcmResourceType=users
+#                               Specifies a list of comma separated usernames in HCM
+#
+#                       Notes: idcsAppDisplayName, idcsAppRoleName and idcsGroupNames can be all omitted or specified
+#                                  together. When the attributes are all omitted, users will only be created if not already
+#                                  exist and no role or group assignment will take place.
+#
+#   deleteUsers:
+#       Deletes users from IDCS completely.
+#               Attributes:
+#                       idcsUsernames: required
+#                               A list of comma separated usernames
+#
+#   grantUsersAppRole:
+#               Assigns users to specified application roles (if not already assigned)
+#               Attributes:
+#                       idcsUsernames: required, see above
+#                       idcsAppDisplayName: required, see above
+#           idcsAppRoleNames: required
+#                               A list of comma separated role names
+#
+#       revokeGrants:
+#               Removes users from specified application roles. No side effects if users are not in the roles to begin with.
+#               Attributes:
+#                       idcsUsernames: required, see above
+#                       idcsAppDisplayName: required, see above
+#           idcsAppRoleNames: required, see above
+#
+#       addUsersToGroups:
+#               Adds users to the specified groups if not already in the groups
+#               Attributes:
+#                       idcsUsernames: required, see above
+#                       idcsGroupNames: required, see above
+#
+#   removeUsersFromGroups:
+#               Removes users from specified groups. No side effects if users are not in the roles to begin with.
+#               Attributes:
+#                       idcsUsernames: required, see above
+#                       idcsGroupNames: required, see above
+#
+
+[TASK-syncAdmin]
+taskType=sync
+hcmResourceType=roles
+hcmFilterString=name eq "TEST_ODA_ADMINISTRATOR_ROLE"
+#hcmFilterString=name eq "TEST_ODA_DEVELOPER_ROLE"
+
+# idcsAppDisplayName and idcsAppRoleName must be present but can be blank
+idcsAppDisplayName=idcs-oda-xxxxxxxxxxxxxxxxxxxxx
+idcsAppRoleName=ServiceAdministrator
+# idcsGroupNames must be present but can be blank
+idcsGroupNames=ODA_Administrators
+
+[TASK-syncDev]
+taskType=sync
+
+# resourceType: roles or users
+hcmResourceType=users
+hcmUsernames=odadev1,odadev2,odadev3,curtis.feitty
+
+# idcsAppDisplayName and idcsAppRoleName must present but can be blank
+idcsAppDisplayName=idcs-oda-xxxxxxxxxxxxxxxxxxxxxx
+idcsAppRoleName=ServiceDeveloper
+
+# idcsGroupNames must be present but can be blank
+idcsGroupNames=ODA_Developers
+
+[#TASK-revokeGrants]
+taskType=revokeGrants
+idcsAppDisplayName=idcs-oda-xxxxxxxxxxxxxxxxxxxxxxxxx
+idcsAppRoleNames=ServiceDeveloper,ServiceAdministrator
+idcsUsernames=odadev2,odaadmin1
+
+[#TASK-deleteUsers]
+taskType=deleteUsers
+idcsUsernames=odaadmin1,odaadmin2,odadev1,odadev2,odadev3
+
+[#TASK-grantUsersAppRole]
+taskType=grantUsersAppRole
+idcsAppDisplayName=idcs-oda-xxxxxxxxxxxxxxxxxxxxxxxxxx
+idcsAppRoleNames=ServiceDeveloper,ServiceAdministrator
+idcsUsernames=odadev2,odaadmin1
+
+[#TASK-addUsersToGroups]
+taskType=addUsersToGroups
+idcsUsernames=odadev1,odadev2,odadev3,odaadmin1,odaadmin2
+idcsGroupNames=ODA_Administrators,ODA_Developers
+
+[#TASK-removeUsersFromGroups]
+taskType=removeUsersFromGroups
+idcsUsernames=odadev1,odaadmin1
+idcsGroupNames=ODA_Administrators,ODA_Developers
