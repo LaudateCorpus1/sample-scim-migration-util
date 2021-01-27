@@ -27,9 +27,9 @@ In an ODA-HCM Hybrid cloud environment, users are first created in the HCM envir
 
 This Python utility program aims to provide more control and fexibility than the OOTB process in moving users into ODA. The tool uses SCIM REST APIs to retrieve user information from HCM and populate these users into ODA IDCS. It has the following features:
 
-1. Configurable behaviors
+1. **Configurable behaviors**
    A simple configuration file is used to specify connectivity information as well as tasks to be performed
-2. Task based approach
+2. **Task based approach**
    The configuraiton file consists of multiple sections. A task is configured as a configuration section. A task tells the utility what to do. All tasks must start with a work "Task" followed by any letters or numbers. See the config file for more details on tasks
 3. Can chain multiple tasks together in one single execution
 4. Can specify HCM users by usernames or by roles as a source
@@ -67,7 +67,7 @@ None
 See [SECURITY](./SECURITY.md) for details.
 
 ## License
-Licensed under the [Universal Permissive License v 1.0] (https://oss.oracle.com/licenses/upl)
+Licensed under the [Universal Permissive License v1.0](https://oss.oracle.com/licenses/upl)
 
 See [LICENSE](./LICENSE.txt) for details.
 
