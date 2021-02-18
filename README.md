@@ -5,6 +5,7 @@
 ## Summary
 This Python utility uses SCIM REST API available in [Oracle Identity Cloud Service](https://docs.oracle.com/en/cloud/paas/identity-cloud/index.html) to populate Oracle Fusion HCM Cloud users into   [Oracle Digital Assistants](https://www.oracle.com/uk/chatbots/digital-assistant-platform/) related [IDCS security store](https://docs.oracle.com/en/cloud/paas/identity-cloud/index.html). Additionally it assigns and configures application roles for the users.
 
+Update on 02/18/2021: SCIM API in IDCS is only exposed with the IDCS Standard license. In some cases, a license upgrade might be necessary.
 
 ## List of Oracle Cloud Services Used
 
